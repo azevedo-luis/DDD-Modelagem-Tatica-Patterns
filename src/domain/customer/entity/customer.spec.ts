@@ -43,7 +43,7 @@ describe("Customer unit tests", () => {
     it("should activate customer", () => {
       const customer = new Customer("1", "Customer 1");
       const address = new Address("Street 1", 123, "13330-250", "São Paulo");
-      customer.Address = address;
+      customer.address = address;
   
       customer.activate();
   
@@ -79,7 +79,7 @@ describe("Customer unit tests", () => {
     it("should emit CustomerChangeAddressEvent when address is changed", () => {
       const customer = new Customer("1", "Customer 1")
       const address1 = new Address("street", 1, "85580-000", "Any city")
-      customer.Address = address1  
+      customer.address = address1  
       const address2 = new Address("street2", 1, "85580-000", "Any city 2")
       customer.changeAddress(address2)
 
@@ -88,7 +88,7 @@ describe("Customer unit tests", () => {
       expect(CustomerChangedAddressEvent).toHaveBeenCalledTimes(1);
       expect(CustomerChangedAddressEvent).toHaveBeenCalledWith({id: customer.id,
                                                                 nome: customer.name,
-                                                                endereco: customer.Address.toString()});
+                                                                endereco: customer.address.toString()});
 
       const mockEventDispatcherInstance = (EventDispatcher as jest.Mock).mock.instances[0];
       const mockEnviaConsoleLogHandler = (EnviaConsoleLogHandler as jest.Mock).mock.instances[0];

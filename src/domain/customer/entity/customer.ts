@@ -1,8 +1,9 @@
 import EventDispatcher from "../../@shared/event/event-dispatcher";
 import CustomerChangedAddressEvent from "../events/customer-changed-address.event";
 import EnviaConsoleLogHandler from "../events/handler/console-log-when-customer-address-is-changed.handler";
+import CustomerInterface from "./customer.interface";
 import Address from "./value-object/address";
-export default class Customer {
+export default class Customer implements CustomerInterface{
     private _id: string;
     private _name: string = "";
     private _address!: Address;
@@ -41,7 +42,7 @@ export default class Customer {
       this.validate();
     }
   
-    get Address(): Address {
+    get address(): Address {
       return this._address;
     }
     
@@ -57,7 +58,7 @@ export default class Customer {
       const customerChangedAddressEvent = new CustomerChangedAddressEvent({
         id: this.id,
         nome: this.name,
-        endereco: this.Address.toString(),
+        endereco: this.address.toString(),
       });
       eventDispatcher.notify(customerChangedAddressEvent);
     }
@@ -81,7 +82,7 @@ export default class Customer {
       this._rewardPoints += points;
     }
   
-    set Address(address: Address) {
+    set address(address: Address) {
       this._address = address;
     }
   }
