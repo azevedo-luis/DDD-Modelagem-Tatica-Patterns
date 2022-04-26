@@ -3,6 +3,7 @@ import EventDispatcher from "../../@shared/event/event-dispatcher";
 import NotificationError from "../../@shared/notification/notification.error";
 import CustomerChangedAddressEvent from "../events/customer-changed-address.event";
 import EnviaConsoleLogHandler from "../events/handler/console-log-when-customer-address-is-changed.handler";
+import CustomerValidatorFactory from "../factory/customer.validator.factory";
 import CustomerInterface from "./customer.interface";
 import Address from "./value-object/address";
 export default class Customer extends Entity implements CustomerInterface {
@@ -31,18 +32,7 @@ export default class Customer extends Entity implements CustomerInterface {
     }
   
     validate() {
-      if (this.id.length === 0) {
-        this.notification.addError({
-          context: "customer",
-          message: "Id is required",
-        });      
-      }
-      if (this._name.length === 0) {
-        this.notification.addError({
-          context: "customer",
-          message: "Name is required",
-        }); 
-      }
+      CustomerValidatorFactory.create().validate(this);
     }
   
     changeName(name: string) {
