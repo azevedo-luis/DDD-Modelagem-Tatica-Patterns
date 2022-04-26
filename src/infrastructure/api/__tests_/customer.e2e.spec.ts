@@ -56,7 +56,7 @@ describe("E2E test for customer", () => {
                 city: "City 2"
             }
         });
-        expect(result.status).toBe(200);
+        expect(result2.status).toBe(200);
 
         // Act
         const response = await request(app).get("/customer").send();
